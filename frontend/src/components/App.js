@@ -4,10 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WelcomeForm from './WelcomeForm';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
-import Sidebar from './Sidebar.js';
-
-
-
+import Sidebar from './Sidebar';
+import SectionsForm from './SectionsForm';
+import Layout from './Layout';
 
 function App() {
   return (
@@ -17,10 +16,13 @@ function App() {
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/sidebar" element={<Sidebar />} />
+        <Route path="/sections" element={<Layout><SectionsForm /></Layout>} />
       </Routes>
     </Router>
   );
 }
+
+
 
 
 

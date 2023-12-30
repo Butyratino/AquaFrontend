@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginForm.css';
+import axios from 'axios';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -14,6 +15,31 @@ const LoginForm = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await fetch('http://localhost:8090/api/auth/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         username,
+  //         password,
+  //       }),
+  //     });
+
+  //     if (response.ok) {
+  //       alert('Login successful!');
+  //     } else {
+  //       alert('Login failed. Please try again.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during login:', error);
+  //   }
+  // };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,6 +57,9 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
+        const token = response.headers.get('Authorization');
+        // Save the token for subsequent requests or use it in Axios headers
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         alert('Login successful!');
       } else {
         alert('Login failed. Please try again.');

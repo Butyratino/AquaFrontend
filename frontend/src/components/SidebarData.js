@@ -7,47 +7,47 @@ export const SidebarData = [
     {
         title: "Home",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/sidebar"
     },
     {
-        title: "Home2",
+        title: "Sections",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/sections"
     },
     {
-        title: "Home3",
+        title: "Additional Services",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/addservices"
     },
     {
-        title: "Home4",
+        title: "Attractions",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/attractions"
     },
     {
-        title: "Home5",
+        title: "Users",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/users"
     },
     {
-        title: "Home6",
+        title: "Tickets",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/tickets"
     },
     {
-        title: "Home7",
+        title: "Payments",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/payments"
     },
     {
-        title: "Home8",
+        title: "Employees",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/employees"
     },
     {
-        title: "Home9",
+        title: "Schedules",
         icon: <HomeIcon />,
-        link: "/home"
+        link: "/schedules"
     },
     {
         title: "Home10",

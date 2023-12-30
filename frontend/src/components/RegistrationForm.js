@@ -17,25 +17,25 @@ const RegistrationForm = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch('http://localhost:8090/api/auth/registration', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    username,
-    password,
-    role: 'user', 
-  }),
-});
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          role: 'user',
+        }),
+      });
 
-  
+
       if (response.ok) {
         alert('Registration successful!');
       } else {
-        const errorMessage = await response.text(); 
+        const errorMessage = await response.text();
         console.error('Registration failed:', errorMessage);
         alert(`Registration failed. Error: ${errorMessage}`);
       }

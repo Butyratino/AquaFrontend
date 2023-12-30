@@ -1,30 +1,74 @@
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
-  }
+.App {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar.css */
+
+.Sidebar {
+  height: 100vh;
+  width: 250px;
+  background-color: #0077cc;
+
+  flex: 0 0 250px; /* Flex properties for Sidebar */
+}
+
+.SidebarList {
+  height: auto;
+  padding: 0;
+  width: 100%;
+}
+
+.SidebarList .row {
+  width: 100%;
+  height: 60px;
+  list-style-type: none;
+  margin: 0%;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.SidebarList .row:hover {
+  cursor: pointer;
+  background-color: orange;
+}
+
+.SidebarList #active {
+  background-color: darkblue;
+}
+
+.row #icon {
+  flex: 30%;
+  display: grid;
+  place-items: center;
+}
+
+.row #title {
+  flex: 70%;
+  display: grid;
+  place-items: center;
+}
+
+
+.ContentWrapper {
+  display: flex;
   
-  .App-header {
-    background-color: #222;
-    height: 150px;
-    padding: 20px;
-    color: white;
-    text-align: center;
-  }
-  
-  .App-title {
-    font-size: 1.5em;
-  }
-  
-  .App-intro {
-    font-size: large;
-  }
-  
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
+  padding: 20px; /* Adjust the padding as needed */
+
+  flex: 1; /* Flex properties for ContentWrapper */
+}
+
+.Content {
+  width: 100%;
+}
