@@ -1,16 +1,18 @@
+//SectionsForm.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditForm from './EditForm';
 import AddForm from './AddForm';
+import './Shared.css'; // Import shared styles
 
 const SectionsForm = () => {
   const [sections, setSections] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
   const [selectedSection, setSelectedSection] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [isAddingSection, setIsAddingSection] = useState(false);
 
   useEffect(() => {
-    console.log('Component mounted or updated');
     fetchData();
   }, []);
 
@@ -26,7 +28,7 @@ const SectionsForm = () => {
   const handleUpdateSection = async (id, updatedSection) => {
     try {
       await axios.put(`http://localhost:8090/api/sections/update/${id}`, updatedSection);
-      fetchData(); // Refresh the sections after update
+      fetchData();
       handleCloseEditForm();
     } catch (error) {
       console.error('Error updating section:', error);
@@ -41,7 +43,7 @@ const SectionsForm = () => {
   const handleDeleteSection = async (id) => {
     try {
       await axios.delete(`http://localhost:8090/api/sections/delete/${id}`);
-      fetchData(); // Refresh the sections after deletion
+      fetchData();
     } catch (error) {
       console.error('Error deleting section:', error);
     }
@@ -53,33 +55,26 @@ const SectionsForm = () => {
   };
 
   const handleAddClick = () => {
-    setShowAddForm(true);
+    if (!showAddForm && !isAddingSection) {
+      setShowAddForm(true);
+    }
   };
 
   const handleAddSection = async (newSection) => {
     try {
-      console.log('Adding section:', newSection);
-  
+      setIsAddingSection(true);
+
       const response = await axios.post('http://localhost:8090/api/sections/add', newSection);
-      console.log('Section added successfully:', response.data);
-  
-      setSections((prevSections) => {
-        const updatedSections = [...prevSections, response.data];
-        console.log('Previous Sections:', prevSections);
-        console.log('Updated Sections:', updatedSections);
-        return updatedSections;
-      });
-  
+
+      setSections((prevSections) => [...prevSections, response.data]);
+
       handleCloseAddForm();
-  
-      console.log('Section added successfully');
     } catch (error) {
       console.error('Error adding section:', error);
+    } finally {
+      setIsAddingSection(false);
     }
   };
-  
-
-
 
   const handleCloseAddForm = () => {
     setShowAddForm(false);
@@ -88,24 +83,31 @@ const SectionsForm = () => {
   return (
     <div>
       <h1>Sections</h1>
-      {sections.map((section) => (
-        <div key={section.sectionId}>
-          <p>Name: {section.name}</p>
-          <p>Description: {section.description}</p>
-          <p>Capacity: {section.capacity}</p>
-          <p>Address ID: {section.addressId}</p>
-          <button onClick={() => handleEditClick(section)}>Edit</button>
-          <button onClick={() => handleDeleteSection(section.sectionId)}>Delete</button>
-          <hr />
-        </div>
-      ))}
+      <div className="sections-grid">
+        {sections.map((section) => (
+          <div key={section.sectionId} className="section-card">
+            <p>Name: {section.name}</p>
+            <p>Description: {section.description}</p>
+            <p>Capacity: {section.capacity}</p>
+            <p>Address ID: {section.addressId}</p>
+            <div className="actions">
+              <button className="button-orange" onClick={() => handleEditClick(section)}>
+                Edit
+              </button>
+              <button className="button-red" onClick={() => handleDeleteSection(section.sectionId)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button className="add-button button-green" onClick={handleAddClick} disabled={isAddingSection}>
+        Add Section
+      </button>
       {showEditForm && (
         <EditForm section={selectedSection} onUpdate={(updatedSection) => handleUpdateSection(selectedSection.sectionId, updatedSection)} onClose={handleCloseEditForm} />
       )}
-      <button onClick={handleAddClick}>Add Section</button>
-      {showAddForm && (
-        <AddForm onAdd={handleAddSection} onClose={handleCloseAddForm} />
-      )}
+      {showAddForm && <AddForm onAdd={handleAddSection} onClose={handleCloseAddForm} />}
     </div>
   );
 };

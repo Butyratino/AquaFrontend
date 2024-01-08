@@ -1,0 +1,38 @@
+/* Shared.css */
+.sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  
+  .section-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  
+  .add-button {
+    margin-top: 16px;
+  }
+  
+  .button-green {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .button-orange {
+    background-color: #ff9800;
+    color: #fff;
+  }
+  
+  .button-red {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
