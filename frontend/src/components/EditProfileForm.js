@@ -45,8 +45,8 @@ const EditProfileForm = ({ user, onUpdate, onClose }) => {
         <input type="text" name="phone" value={formData.phone || ''} onChange={handleChange} />
         <label>Email:</label>
         <input type="email" name="email" value={formData.email || ''} onChange={handleChange} />
-        <label>Address ID:</label>
-        <input type="number" name="addressId" value={formData.addressId || ''} onChange={handleChange} />
+        {/* <label>Address ID:</label>
+        <input type="number" name="addressId" value={formData.addressId || ''} onChange={handleChange} /> */}
 
         <div className="form-buttons">
           <button type="button" onClick={handleUpdate}>

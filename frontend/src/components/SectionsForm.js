@@ -43,11 +43,12 @@ const SectionsForm = () => {
   const handleDeleteSection = async (id) => {
     try {
       await axios.delete(`http://localhost:8090/api/sections/delete/${id}`);
-      fetchData();
-    } catch (error) {
+      fetchData(); // Refresh sections after deletion
+    } catch (error) { 
       console.error('Error deleting section:', error);
     }
   };
+  
 
   const handleCloseEditForm = () => {
     setShowEditForm(false);
@@ -86,10 +87,16 @@ const SectionsForm = () => {
       <div className="sections-grid">
         {sections.map((section) => (
           <div key={section.sectionId} className="section-card">
-            <p>Name: {section.name}</p>
-            <p>Description: {section.description}</p>
-            <p>Capacity: {section.capacity}</p>
-            <p>Address ID: {section.addressId}</p>
+            <p>Name: {section.sectionName}</p>
+            <p>Description: {section.sectionDescription}</p>
+            <p>Capacity: {section.sectionCapacity}</p>
+            <div className="address-details">
+              <p>House Number: {section.houseNumber}</p>
+              <p>Street: {section.street}</p>
+              <p>Postal Code: {section.postalCode}</p>
+              {/* <p>District ID: {section.districtId}</p> */}
+              <p>District Name: {section.districtName}</p>
+            </div>
             <div className="actions">
               <button className="button-orange" onClick={() => handleEditClick(section)}>
                 Edit
@@ -100,6 +107,7 @@ const SectionsForm = () => {
             </div>
           </div>
         ))}
+
       </div>
       <button className="add-button button-green" onClick={handleAddClick} disabled={isAddingSection}>
         Add Section

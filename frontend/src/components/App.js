@@ -12,6 +12,10 @@ import AddServicesForm from "./AddServicesForm"
 import AttractionsForm from "./AttractionsForm"
 import UserForm from "./UserForm"
 import UserProfile from "./UserProfileForm"
+import TicketsForm from "./TicketsForm"
+import PaymentsForm from "./PaymentsForm"
+import EmployeesForm from "./EmployeesForm"
+import SchedulesForm from "./SchedulesForm"
 
 function App() {
   return (
@@ -27,6 +31,10 @@ function App() {
           <Route path="/attractions" element={<Layout><AttractionsForm /></Layout>} />
           <Route path="/users" element={<Layout><UserForm /></Layout>} />
           <Route path="/sidebar" element={<Layout><UserProfile /></Layout>} />
+          <Route path="/tickets" element={<Layout><TicketsForm /></Layout>} />
+          <Route path="/payments" element={<Layout><PaymentsForm /></Layout>} />
+          <Route path="/employees" element={<Layout><EmployeesForm /></Layout>} />
+          <Route path="/schedules" element={<Layout><SchedulesForm /></Layout>} />
 
         </Routes>
       </UserProvider>

@@ -2,6 +2,19 @@
 
 import React from "react";
 import HomeIcon from '@mui/icons-material/Home';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import PeopleIcon from '@mui/icons-material/People';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import PaymentIcon from '@mui/icons-material/Payment';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+
+import BusinessIcon from '@mui/icons-material/Business';
+import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+
+
 
 export const SidebarData = [
     {
@@ -11,53 +24,44 @@ export const SidebarData = [
     },
     {
         title: "Sections",
-        icon: <HomeIcon />,
+        icon: <BusinessIcon />,
         link: "/sections"
     },
     {
         title: "Additional Services",
-        icon: <HomeIcon />,
+        icon: <EmojiTransportationIcon />,
         link: "/addservices"
     },
     {
         title: "Attractions",
-        icon: <HomeIcon />,
+        icon: <MenuBookIcon />,
         link: "/attractions"
     },
     {
         title: "Users",
-        icon: <HomeIcon />,
+        icon: <PeopleIcon />,
         link: "/users"
     },
     {
         title: "Tickets",
-        icon: <HomeIcon />,
+        icon: <ConfirmationNumberIcon />,
         link: "/tickets"
     },
     {
         title: "Payments",
-        icon: <HomeIcon />,
+        icon: <PaymentIcon />,
         link: "/payments"
     },
     {
         title: "Employees",
-        icon: <HomeIcon />,
+        icon: <PeopleIcon />,
         link: "/employees"
     },
     {
         title: "Schedules",
-        icon: <HomeIcon />,
+        icon: <ScheduleIcon />,
         link: "/schedules"
     },
-    {
-        title: "Home10",
-        icon: <HomeIcon />,
-        link: "/home"
-    },
-    {
-        title: "Home11",
-        icon: <HomeIcon />,
-        link: "/home"
-    }
+    
     
 ]

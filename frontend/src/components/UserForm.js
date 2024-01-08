@@ -86,10 +86,10 @@ const UserForm = () => {
       <div className="grid">
         {users.map((user) => (
           <div key={user.userId} className="card">
-            <p>Name: {user.name}</p>
+            <p>Name: {user.username}</p>
             <p>Email: {user.email}</p>
             <p>Role: {user.role}</p>
-            <p>Avatar: {user.avatar}</p>
+            {/* <p>Avatar: {user.avatar}</p> */}
             <p>Has Avatar: {user.hasAvatar}</p>
             {/* Add other user properties as needed */}
             <div className="actions">

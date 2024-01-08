@@ -117,7 +117,7 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch('http://localhost:8090/api/auth/login', {
         method: 'POST',
@@ -129,10 +129,16 @@ const LoginForm = () => {
           password,
         }),
       });
-
+  
       if (response.ok) {
         const userData = await response.json();
         const token = response.headers.get('Authorization');
+      
+        // Save user data in localStorage
+        localStorage.setItem('userid', userData.id); // Use 'id' instead of 'userid'
+        localStorage.setItem('username', userData.username);
+        localStorage.setItem('role', userData.role);
+      
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         alert('Login successful!');
         loginUser(userData);

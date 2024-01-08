@@ -1,30 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditProfileForm from './EditProfileForm';
-import ChangeAvatarForm from './ChangeAvatarForm'; // Import the new component
+import ChangeAvatarForm from './ChangeAvatarForm';
 import './Shared.css';
 import { useUser } from './UserContext';
 
 const UserProfileForm = () => {
-  const { user, loginUser } = useUser();
+  const { user, loginUser, setUser } = useUser();
   const [userInfo, setUserInfo] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [showChangeAvatarForm, setShowChangeAvatarForm] = useState(false); // State for showing the ChangeAvatarForm
+  const [showChangeAvatarForm, setShowChangeAvatarForm] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:8090/api/profile/${user.username}`);
-        setUserInfo(response.data);
+        if (user && user.username) {
+          const response = await axios.get(`http://localhost:8090/api/profile/${user.username}`);
+          setUserInfo(response.data);
+        }
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
     };
 
-    if (user) {
+    const userIdFromStorage = localStorage.getItem('userid');
+
+    if (userIdFromStorage && !user) {
+      setUser({
+        username: localStorage.getItem('username'),
+        userid: localStorage.getItem('userid'),
+        role: localStorage.getItem('role'),
+      });
+    }
+
+    if (user && user.username) {
       fetchUserProfile();
     }
-  }, [user]);
+  }, [user, setUser]);
 
   const handleEditClick = () => {
     setShowEditForm(true);
@@ -32,19 +44,12 @@ const UserProfileForm = () => {
 
   const handleUpdateProfile = async (updatedProfile) => {
     try {
-      // Make sure that user is not undefined before accessing properties
-      if (user) {
-        // Make API request to update the user's own profile
+      if (user && user.userid) {
         await axios.post(`http://localhost:8090/api/profile/update/${user.userid}`, updatedProfile);
-
-        // Fetch updated user data after the update
         const response = await axios.get(`http://localhost:8090/api/profile/${user.username}`);
         const updatedUserData = response.data;
 
-        // Update the user context with the new data
         loginUser(updatedUserData);
-
-        // Close the edit form
         setShowEditForm(false);
       }
     } catch (error) {
@@ -64,19 +69,40 @@ const UserProfileForm = () => {
     setShowChangeAvatarForm(false);
   };
 
+  const downloadLogs = async () => {
+    try {
+      const response = await axios.get('http://localhost:8090/api/aquapark/logs');
+      const logsData = response.data;
+      const logsJSON = JSON.stringify(logsData);
+
+      const blob = new Blob([logsJSON], { type: 'application/json' });
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = 'logs.json';
+      downloadLink.click();
+    } catch (error) {
+      console.error('Error downloading logs:', error);
+    }
+  };
+
   return (
     <div>
-      {userInfo ? (
+      {user && userInfo ? (
         <div>
           <h2>User Profile</h2>
-          <img src={`http://localhost:8090/api/users/${user.userid}/avatar`} alt="User Avatar" />
+          <img
+            src={user && user.userid ? `http://localhost:8090/api/profile/${user.userid}/avatar` : ''}
+            alt="User Avatar"
+            onLoad={() => console.log('Avatar loaded successfully')}
+            onError={(e) => console.error('Error loading avatar:', e.message, e)}
+            style={{ maxWidth: '300px', maxHeight: '300px' }}
+          />
+
           <p>Username: {userInfo.username}</p>
           <p>Password: {userInfo.password}</p>
           <p>Role: {userInfo.role}</p>
           <p>Phone: {userInfo.phone}</p>
           <p>Email: {userInfo.email}</p>
-          <p>Address ID: {userInfo.addressid}</p>
-
           <div className="actions">
             <button className="button-orange" onClick={handleEditClick}>
               Edit Profile
@@ -84,6 +110,11 @@ const UserProfileForm = () => {
             <button className="button-blue" onClick={handleAvatarClick}>
               Change Avatar
             </button>
+            {user.role === 'admin' && (
+              <button className="button-green" onClick={downloadLogs}>
+                Download Logs
+              </button>
+            )}
           </div>
         </div>
       ) : (

@@ -15,7 +15,10 @@ const ChangeAvatarForm = () => {
     try {
       console.log('User:', user); // Log the user information
 
-      if (!user || !user.id) {
+      // Use user information from local storage if not available in context
+      const userId = user?.userid || localStorage.getItem('userid');
+
+      if (!userId) {
         console.error('User ID is undefined.');
         return;
       }
@@ -27,9 +30,9 @@ const ChangeAvatarForm = () => {
         const base64Image = reader.result.split(',')[1]; // Get the base64 content
 
         // Make API request to update the user's picture
-        axios.post(`http://localhost:8090/api/profile/img/${user.id}`, base64Image, {
+        axios.post(`http://localhost:8090/api/profile/img/${userId}`, base64Image, {
           headers: {
-            'Content-Type': 'text/plain', // Set content type to text/plain for base64 string
+            'Content-Type': 'text/plain', // Set content type to text/plain for the base64 string
           },
         });
       };
